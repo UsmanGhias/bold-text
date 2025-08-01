@@ -36,7 +36,6 @@ export const metadata: Metadata = {
     creator: '@usmanghias',
   },
   robots: 'index, follow',
-  canonical: 'https://boldtext.vercel.app',
   alternates: {
     canonical: 'https://boldtext.vercel.app',
   },

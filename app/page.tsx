@@ -5,6 +5,7 @@ import { Type, Github, Heart, ExternalLink, MessageCircle } from 'lucide-react'
 import { convertToStyle, TextStyle } from '@/lib/convertToBold'
 import DarkModeToggle from '@/components/DarkModeToggle'
 import TextInput from '@/components/TextInput'
+import Image from 'next/image'
 
 export default function Home() {
   const [inputText, setInputText] = useState('')
@@ -39,7 +40,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <img src="/boldtext.png" alt="BoldText Logo" className="w-10 h-10 rounded-full" />
+              <Image src="/boldtext.png" alt="BoldText Logo" width={40} height={40} className="rounded-full" />
               <div>
                 <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                   BoldText Converter
