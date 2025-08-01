@@ -4,19 +4,20 @@ import { useState } from 'react'
 import { Copy, Check } from 'lucide-react'
 
 interface OutputBoxProps {
-  boldText: string
+  styledText: string
   originalText: string
+  selectedStyle: string
 }
 
-export default function OutputBox({ boldText, originalText }: OutputBoxProps) {
+export default function OutputBox({ styledText, originalText, selectedStyle }: OutputBoxProps) {
   const [copied, setCopied] = useState(false)
   const [copyError, setCopyError] = useState(false)
 
   const handleCopy = async () => {
-    if (!boldText.trim()) return
+    if (!styledText.trim()) return
 
     try {
-      await navigator.clipboard.writeText(boldText)
+      await navigator.clipboard.writeText(styledText)
       setCopied(true)
       setCopyError(false)
       
@@ -29,7 +30,7 @@ export default function OutputBox({ boldText, originalText }: OutputBoxProps) {
       // Fallback for older browsers
       try {
         const textArea = document.createElement('textarea')
-        textArea.value = boldText
+        textArea.value = styledText
         document.body.appendChild(textArea)
         textArea.select()
         document.execCommand('copy')
@@ -46,13 +47,13 @@ export default function OutputBox({ boldText, originalText }: OutputBoxProps) {
   }
 
   const isEmpty = !originalText.trim()
-  const hasConvertibleText = boldText !== originalText
+  const hasConvertibleText = styledText !== originalText
 
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <label htmlFor="output-text" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-          Bold Unicode Output
+          {selectedStyle} Output
         </label>
         
         <button
@@ -69,7 +70,7 @@ export default function OutputBox({ boldText, originalText }: OutputBoxProps) {
                   : 'btn-primary hover:scale-105'
             }
           `}
-          aria-label={copied ? 'Text copied!' : 'Copy bold text'}
+          aria-label={copied ? 'Text copied!' : 'Copy styled text'}
         >
           {copied ? (
             <>
@@ -92,24 +93,24 @@ export default function OutputBox({ boldText, originalText }: OutputBoxProps) {
         className={`output-box ${isEmpty ? 'text-gray-400 dark:text-gray-600' : ''}`}
         role="textbox"
         aria-readonly="true"
-        aria-label="Bold text output"
+        aria-label="Styled text output"
       >
         {isEmpty ? (
-          <span className="italic">Your bold text will appear here...</span>
+          <span className="italic">Your styled text will appear here...</span>
         ) : (
-          boldText
+          styledText
         )}
       </div>
       
       {!isEmpty && hasConvertibleText && (
         <div className="text-xs text-gray-500 dark:text-gray-400 fade-in">
-          ✨ Text successfully converted to bold Unicode characters
+          ✨ Text successfully converted to {selectedStyle} Unicode characters
         </div>
       )}
       
       {!isEmpty && !hasConvertibleText && (
         <div className="text-xs text-amber-600 dark:text-amber-400 fade-in">
-          ⚠️ No convertible characters found (only A-Z, a-z, 0-9 can be made bold)
+          ⚠️ No convertible characters found (only A-Z, a-z, 0-9 can be styled)
         </div>
       )}
     </div>
