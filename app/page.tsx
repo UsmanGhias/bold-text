@@ -164,7 +164,7 @@ export default function Home() {
             <div className="space-y-4 text-gray-600 dark:text-gray-400">
               <p>
                 This tool converts regular text characters into their <strong>Mathematical Bold Unicode</strong> equivalents. 
-                Unlike CSS bold styling, these are actual Unicode characters that will appear bold anywhere they're used.
+                Unlike CSS bold styling, these are actual Unicode characters that will appear bold anywhere they&apos;re used.
               </p>
               <div className="grid sm:grid-cols-2 gap-4 mt-6">
                 <div>
