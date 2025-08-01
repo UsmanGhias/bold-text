@@ -105,7 +105,7 @@ export function convertToStyle(text: string, style: TextStyle): string {
   
   return text
     .split('')
-    .map(char => styleMap[char] || char)
+    .map(char => (styleMap as Record<string, string>)[char] || char)
     .join('');
 }
 
@@ -125,7 +125,7 @@ export function convertToBold(text: string): string {
  * @returns True if the character can be converted
  */
 export function isConvertible(char: string, style: TextStyle): boolean {
-  return char in TEXT_STYLES[style];
+  return char in (TEXT_STYLES[style] as Record<string, string>);
 }
 
 /**
