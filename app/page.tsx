@@ -1,13 +1,14 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Github, ExternalLink, MessageCircle } from 'lucide-react'
+import { Github, ExternalLink, MessageCircle, Copy, Check } from 'lucide-react'
 import { convertToStyle, TextStyle } from '@/lib/convertToBold'
 import DarkModeToggle from '@/components/DarkModeToggle'
 import TextInput from '@/components/TextInput'
 
 export default function Home() {
   const [inputText, setInputText] = useState('')
+  const [copiedStyle, setCopiedStyle] = useState<string | null>(null)
 
   // Load saved text from localStorage on mount
   useEffect(() => {
@@ -30,7 +31,20 @@ export default function Home() {
     setInputText(value)
   }
 
-  const styles = ['bold', 'boldSans', 'boldItalic', 'boldItalicSans', 'doubleStruck', 'fraktur', 'script', 'monospace'] as TextStyle[]
+  const handleCopy = async (text: string, style: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedStyle(style)
+      setTimeout(() => setCopiedStyle(null), 2000)
+    } catch (err) {
+      console.error('Failed to copy text:', err)
+    }
+  }
+
+  const styles = [
+    'bold', 'boldSans', 'boldItalic', 'boldItalicSans', 'doubleStruck', 'fraktur', 'script', 'monospace',
+    'boldSerif', 'italic', 'sansSerif', 'scriptBold', 'doubleStruckBold', 'frakturBold'
+  ] as TextStyle[]
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
@@ -44,7 +58,7 @@ export default function Home() {
                   BoldText Converter
                 </h1>
                 <p className="text-sm text-gray-600 dark:text-gray-400 hidden sm:block">
-                  Convert text to 8 Unicode styles instantly
+                  Convert text to 14 Unicode styles instantly
                 </p>
               </div>
             </div>
@@ -110,27 +124,26 @@ export default function Home() {
 
           {/* All Styles Output */}
           {inputText && (
-            <div className="space-y-4">
+            <div className="space-y-3">
               {styles.map((style) => (
-                <div key={style} className="card p-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-gray-900 dark:text-white capitalize">
+                <div key={style} className="card p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="font-semibold text-gray-900 dark:text-white capitalize text-sm">
                       {style.replace(/([A-Z])/g, ' $1').trim()}
                     </h3>
                     <button
-                      onClick={async () => {
-                        try {
-                          await navigator.clipboard.writeText(convertToStyle(inputText, style))
-                        } catch (err) {
-                          console.error('Failed to copy text:', err)
-                        }
-                      }}
-                      className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm"
+                      onClick={() => handleCopy(convertToStyle(inputText, style), style)}
+                      className="p-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                      title="Copy to clipboard"
                     >
-                      Copy
+                      {copiedStyle === style ? (
+                        <Check className="h-4 w-4 text-green-500" />
+                      ) : (
+                        <Copy className="h-4 w-4" />
+                      )}
                     </button>
                   </div>
-                  <div className="text-lg font-mono bg-gray-50 dark:bg-gray-800 p-4 rounded-lg break-all">
+                  <div className="text-base font-mono bg-gray-50 dark:bg-gray-800 p-3 rounded-lg break-all min-h-[2.5rem]">
                     {convertToStyle(inputText, style)}
                   </div>
                 </div>
@@ -172,8 +185,8 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 mt-12">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="text-center space-y-4">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="text-center space-y-6">
             <div className="flex items-center justify-center space-x-2 text-gray-600 dark:text-gray-400">
               <span>Developed by</span>
               <a 
@@ -186,8 +199,8 @@ export default function Home() {
               </a>
             </div>
             
-            <div className="text-xs text-gray-400 dark:text-gray-500 max-w-2xl mx-auto">
-              Senior Full Stack Developer | MERN Stack Expert | Odoo Developer | MSSE @Quantic | CEO @CODCrafters
+            <div className="text-sm text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+              Senior Full Stack Developer | MERN Stack Expert | Odoo Developer | MSSE @Quantic
             </div>
           </div>
         </div>
