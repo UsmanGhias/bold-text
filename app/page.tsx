@@ -1,11 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Type, Github, Heart, ExternalLink, MessageCircle } from 'lucide-react'
+import { Github, ExternalLink, MessageCircle } from 'lucide-react'
 import { convertToStyle, TextStyle } from '@/lib/convertToBold'
 import DarkModeToggle from '@/components/DarkModeToggle'
 import TextInput from '@/components/TextInput'
-import Image from 'next/image'
 
 export default function Home() {
   const [inputText, setInputText] = useState('')
@@ -40,7 +39,6 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <Image src="/boldtext.png" alt="BoldText Logo" width={40} height={40} className="rounded-full" />
               <div>
                 <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                   BoldText Converter
@@ -51,7 +49,37 @@ export default function Home() {
               </div>
             </div>
             
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-4">
+              {/* Social Links */}
+              <div className="hidden sm:flex items-center space-x-4 text-sm">
+                <a 
+                  href="https://github.com/usmanghias" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-1 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                >
+                  <Github className="h-4 w-4" />
+                  <span>GitHub</span>
+                </a>
+                <a 
+                  href="https://linkedin.com/in/m-usmanghias" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-1 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  <span>LinkedIn</span>
+                </a>
+                <a 
+                  href="https://wa.me/923126912440" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-1 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  <span>WhatsApp</span>
+                </a>
+              </div>
               <DarkModeToggle />
             </div>
           </div>
@@ -59,26 +87,15 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="space-y-8">
-          {/* Hero Section */}
-          <div className="text-center space-y-4">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
-              Transform Your Text with <span className="text-primary-600 dark:text-primary-400">8 Unicode Styles</span>
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              Convert regular text into 8 different Unicode styles instantly. Perfect for LinkedIn, Facebook, 
-              Instagram, and all social media platforms.
-            </p>
-          </div>
-
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="space-y-6">
           {/* Input Section */}
-          <div className="card p-6 sm:p-8">
+          <div className="card p-6">
             <TextInput
               value={inputText}
               onChange={handleInputChange}
               maxLength={1000}
-              placeholder="Type or paste your text here and see all 8 styles instantly..."
+              placeholder="Add text here, then scroll down ↓"
             />
             
             {!inputText && (
@@ -93,17 +110,13 @@ export default function Home() {
 
           {/* All Styles Output */}
           {inputText && (
-            <div className="card p-6 sm:p-8">
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">All 8 Text Styles</h3>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {styles.map((style) => (
-                  <div key={style} className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800">
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-3 capitalize">
+            <div className="space-y-4">
+              {styles.map((style) => (
+                <div key={style} className="card p-6">
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="font-semibold text-gray-900 dark:text-white capitalize">
                       {style.replace(/([A-Z])/g, ' $1').trim()}
-                    </h4>
-                    <div className="text-lg font-mono mb-3 min-h-[2.5rem]">
-                      {convertToStyle(inputText, style)}
-                    </div>
+                    </h3>
                     <button
                       onClick={async () => {
                         try {
@@ -112,18 +125,21 @@ export default function Home() {
                           console.error('Failed to copy text:', err)
                         }
                       }}
-                      className="w-full px-3 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm"
+                      className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm"
                     >
                       Copy
                     </button>
                   </div>
-                ))}
-              </div>
+                  <div className="text-lg font-mono bg-gray-50 dark:bg-gray-800 p-4 rounded-lg break-all">
+                    {convertToStyle(inputText, style)}
+                  </div>
+                </div>
+              ))}
             </div>
           )}
 
           {/* How it Works */}
-          <div className="card p-6 sm:p-8">
+          <div className="card p-6">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">How it Works</h3>
             <div className="space-y-4 text-gray-600 dark:text-gray-400">
               <p>
@@ -155,9 +171,9 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 mt-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center space-y-6">
+      <footer className="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 mt-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="text-center space-y-4">
             <div className="flex items-center justify-center space-x-2 text-gray-600 dark:text-gray-400">
               <span>Developed by</span>
               <a 
@@ -167,37 +183,6 @@ export default function Home() {
                 className="font-semibold text-primary-600 dark:text-primary-400 hover:underline"
               >
                 Usman Ghias
-              </a>
-            </div>
-            
-            {/* Social Links */}
-            <div className="flex items-center justify-center space-x-6 text-sm">
-              <a 
-                href="https://github.com/usmanghias" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              >
-                <Github className="h-4 w-4" />
-                <span>GitHub</span>
-              </a>
-              <a 
-                href="https://linkedin.com/in/m-usmanghias" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              >
-                <ExternalLink className="h-4 w-4" />
-                <span>LinkedIn</span>
-              </a>
-              <a 
-                href="https://wa.me/923126912440" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              >
-                <MessageCircle className="h-4 w-4" />
-                <span>WhatsApp</span>
               </a>
             </div>
             
