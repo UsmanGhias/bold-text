@@ -114,7 +114,7 @@ export default function Home() {
             
             {!inputText && (
               <button
-                onClick={() => setInputText('Hello World! Transform your text to STYLISH Unicode characters instantly. 123 ABC xyz')}
+                onClick={() => setInputText('Hello World! 123 ABC')}
                 className="mt-4 text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
               >
                 Try example text
@@ -124,26 +124,26 @@ export default function Home() {
 
           {/* All Styles Output */}
           {inputText && (
-            <div className="space-y-3">
+            <div className="space-y-2">
               {styles.map((style) => (
-                <div key={style} className="card p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold text-gray-900 dark:text-white capitalize text-sm">
+                <div key={style} className="card p-3">
+                  <div className="flex items-center justify-between mb-1">
+                    <h3 className="font-semibold text-gray-900 dark:text-white capitalize text-xs">
                       {style.replace(/([A-Z])/g, ' $1').trim()}
                     </h3>
                     <button
                       onClick={() => handleCopy(convertToStyle(inputText, style), style)}
-                      className="p-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                      className="p-1 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                       title="Copy to clipboard"
                     >
                       {copiedStyle === style ? (
-                        <Check className="h-4 w-4 text-green-500" />
+                        <Check className="h-3 w-3 text-green-500" />
                       ) : (
-                        <Copy className="h-4 w-4" />
+                        <Copy className="h-3 w-3" />
                       )}
                     </button>
                   </div>
-                  <div className="text-base font-mono bg-gray-50 dark:bg-gray-800 p-3 rounded-lg break-all min-h-[2.5rem]">
+                  <div className="text-sm font-mono bg-gray-50 dark:bg-gray-800 p-2 rounded-lg break-all min-h-[2rem]">
                     {convertToStyle(inputText, style)}
                   </div>
                 </div>
@@ -199,8 +199,8 @@ export default function Home() {
               </a>
             </div>
             
-            <div className="text-sm text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-              Senior Full Stack Developer | MERN Stack Expert | Odoo Developer | MSSE @Quantic
+            <div className="text-sm text-gray-500 dark:text-gray-400 max-w-4xl mx-auto">
+              Senior Odoo | MERN | Shopify | Flutter | DevOps | WordPress & Full Stack Developer | Typescript | Next JS | SEO | MSSE @Quantic | CEO @COD Crafters | Senior Software & AI Engineer | Python | JS | XML | JSON | API's
             </div>
           </div>
         </div>
