@@ -200,7 +200,7 @@ export default function Home() {
             </div>
             
             <div className="text-sm text-gray-500 dark:text-gray-400 max-w-4xl mx-auto">
-              Senior Odoo | MERN | Shopify | Flutter | DevOps | WordPress & Full Stack Developer | Typescript | Next JS | SEO | MSSE @Quantic | CEO @COD Crafters | Senior Software & AI Engineer | Python | JS | XML | JSON | API's
+              Senior Odoo | MERN | Shopify | Flutter | DevOps | WordPress & Full Stack Developer | Typescript | Next JS | SEO | MSSE @Quantic | CEO @COD Crafters | Senior Software & AI Engineer | Python | JS | XML | JSON | APIs
             </div>
           </div>
         </div>
