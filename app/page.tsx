@@ -190,7 +190,7 @@ export default function Home() {
             <div className="flex items-center justify-center space-x-2 text-gray-600 dark:text-gray-400">
               <span>Developed by</span>
               <a 
-                href="https://usman.codcrafters.org" 
+                href="https://usmanghias.co.uk" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="font-semibold text-primary-600 dark:text-primary-400 hover:underline"
